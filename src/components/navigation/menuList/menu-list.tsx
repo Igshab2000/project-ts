@@ -27,7 +27,7 @@ const MenuList: React.FC<IMenuListProps> = ({ isOpen, onClick }) => {
           </div>
 
         </Link>
-        <Link to='' onClick={onClick}>
+        <Link to='/layout/process-list' onClick={onClick}>
           <div className={style.field}>
             <ProcessesSvg/>
             <p className={style.span}>

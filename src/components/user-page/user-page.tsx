@@ -73,15 +73,15 @@ import { IPropsUserPage, IUserPageState, IUserElement, IUser } from "./user-page
     }
   }
 
-  const mapDispatchToProps: MapDispatchToProps<
-    TRegistrationDispatchProps, 
-    IProps
-> = (dispatch: Dispatch, ownProps: IProps) => {
-    return {
-        registration: (firstName: string, lastName: string, email: string, password: string | number) => 
-        dispatch(Registration(firstName, lastName, email, password)) 
-    }
-}
+//   const mapDispatchToProps: MapDispatchToProps<
+//     TRegistrationDispatchProps, 
+//     IProps
+// > = (dispatch: Dispatch, ownProps: IProps) => {
+//     return {
+//         registration: (firstName: string, lastName: string, email: string, password: string | number) => 
+//         dispatch(Registration(firstName, lastName, email, password)) 
+//     }
+// }
 
   const connectedToReduxForm = reduxForm<
     TFormData,
@@ -111,7 +111,7 @@ const ConnectedUserPage = connect<
     TRegistrationDispatchProps
 >(
     mapStateToProps,
-    mapDispatchToProps
+    // mapDispatchToProps
 )(connectedToReduxForm(UserPage))
 
 export default ConnectedUserPage;

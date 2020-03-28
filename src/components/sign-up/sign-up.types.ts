@@ -2,7 +2,7 @@ import { InjectedFormProps } from "redux-form";
 import { TFormData, TOwnProps } from "../sign-in/sign-in.types";
 
 export type TRegistrationDispatchProps = {
-    registration(firstName: string, lastName: string, email: string, password: string): any;
+    registration(payload: string): any;
 };
 
 export interface ISignUpProps  extends InjectedFormProps<

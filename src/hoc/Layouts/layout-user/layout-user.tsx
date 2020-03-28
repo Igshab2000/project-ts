@@ -1,9 +1,10 @@
 import * as React from "react";
 import MenuList from "../../../components/navigation/menuList/menu-list";
 import BackDroup from "../../../components/back-drop/back-drop";
-import {style} from './layout-user.style'
-import UserPage from '../../../components/user-page/user-page'
-import {Switch, Route} from 'react-router-dom'
+import {style} from './layout-user.style';
+import UserPage from '../../../components/user-page/user-page';
+import  ProcessList  from '../../../components/processesList/processesList';
+import {Switch, Route} from 'react-router-dom';
 
 export interface ILayoutProps {
   children?: React.ReactElement
@@ -21,6 +22,7 @@ class LayoutUser extends React.Component<ILayoutProps, ILayoutState> {
     };
 
     this.menuToggle = this.menuToggle.bind(this);
+    //console.log('layout-user ', ProcessList);
   }
 
   public menuToggle() {
@@ -47,6 +49,7 @@ class LayoutUser extends React.Component<ILayoutProps, ILayoutState> {
         <main className={style.main}>
           <Switch>
             <Route path="/layout/user-page" component={UserPage}/>
+            <Route path="/layout/process-list" component={ProcessList}/>
           </Switch>
         </main>
         {this.state.isOpenMenu ? <BackDroup onClick={this.menuToggle} /> : null}

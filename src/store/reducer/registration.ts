@@ -1,7 +1,7 @@
 import { onlyEmail, passLength } from "../../utils/validator";
 
 export interface IStateLogin {
-    token: string,
+    signup: string,
     listInput: Array<IItemSign>
 }
 
@@ -13,7 +13,7 @@ export interface IItemSign {
 }
 
 const initState: IStateLogin = {
-    token: '',
+    signup: '',
     listInput: [
         {name: 'firstNameField', placeholder: 'Имя', type: 'text'},
         {name: 'lastNameField', placeholder: 'Фамилия', type: 'text'},
@@ -25,6 +25,8 @@ const initState: IStateLogin = {
 
 export const RegistrationReducer = (state: IStateLogin = initState, action: any ) => {
     switch(action.type) {
+        case 'userRegistration':
+            state.signup = action.layout
         default: 
             return state
     }

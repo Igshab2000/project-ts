@@ -1,15 +1,8 @@
-import { ThunkDispatch } from 'redux-thunk'
-import {Action} from 'redux';
-
-const Registration = (firstName: string, lastName: string, email: string, password: string | number): any => {
-    return (dispatch: ThunkDispatch<{}, undefined, Action>) => {
-        const dateLogin = {
-            firstName,
-            lastName,
-            email,
-            password
-        }
+const registration = (payload: any): any => {
+    return {
+        type: 'userRegistration',
+        payload
     }
 }
 
-export default Registration
+export default registration

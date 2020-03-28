@@ -8,7 +8,7 @@ import { IProps, TOwnProps, TFormData } from "../sign-in/sign-in.types";
 import { MapStateToProps, connect, MapDispatchToProps } from "react-redux";
 import { reduxForm, SubmissionError } from "redux-form";
 import { Dispatch } from "redux";
-import Registration from '../../store/action/registration';
+import registration from '../../store/action/registration';
 import {TRegistrationDispatchProps, ISignUpProps, ISignState} from './sign-up.types'
 import { withMutation, MutateProps } from "@apollo/react-hoc";
 import HeaderSvg from '../../utils/svg/headerSvg';
@@ -34,7 +34,7 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
 
     private handleSubmit = (fields: any) => {
         console.warn(fields);
-        const {mutate} = this.props as any;
+        const {mutate, history} = this.props as any;
         return new Promise((resolve, reject) => {
             mutate({
               variables: {
@@ -45,7 +45,8 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
               }
             })
             .then((res: any) => {
-                console.log(res);
+                //this.props.registration(res.data.signup);
+                history.push("/layout/user-page");
                 resolve(res);
             })
             .catch((e: any) => {
@@ -110,8 +111,7 @@ const mapDispatchToProps: MapDispatchToProps<
     IProps
 > = (dispatch: Dispatch, ownProps: IProps) => {
     return {
-        registration: (firstName: string, lastName: string, email: string, password: string | number) => 
-        dispatch(Registration(firstName, lastName, email, password)) 
+        registration: (payload) => {dispatch(registration(payload))} 
     }
 }
 
@@ -125,9 +125,7 @@ const connectedToReduxForm = reduxForm<
 
 const mapStateToProps: MapStateToProps<any, TOwnProps> = (
     state: any,
-    ownProps: TOwnProps
   ) => {
-    console.log('signup ', ownProps);
     return {
         listInput: state.registration.listInput
     }
