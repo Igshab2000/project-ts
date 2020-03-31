@@ -3,11 +3,11 @@ import LayoutUser from './hoc/Layouts/layout-user/layout-user';
 import SignIn from './components/sign-in/sign-in';
 import SignUp from './components/sign-up/sign-up';
 import {Switch, Route} from 'react-router-dom';
-import { Provider as ReduxProvider, connect, MapStateToProps } from "react-redux";
-import store from "./store/index.store";
+import { connect, MapStateToProps } from "react-redux";
 import ApolloClient, { Operation } from 'apollo-boost';
-import { gql } from "apollo-boost";
 import { ApolloProvider } from '@apollo/react-hooks';
+import UserPage from './components/user-page/user-page';
+import ProcessList from './components/processesList/processesList'  
 
 export interface IAppProps {}
 
@@ -36,7 +36,8 @@ function App(props: any) {
   if(props.token) {
     routes = (
       <Switch>
-        <Route path="/layout" component={LayoutUser}/>
+        <Route path="/user-page" component={UserPage}/>
+        <Route path="/process-list" component={ProcessList}/>
       </Switch>
     )
   }

@@ -1,41 +1,65 @@
 import * as React from "react";
-import {style} from './input.style'
-import { Field, BaseFieldProps, WrappedFieldProps } from "redux-form";
+import {style, passwordFieldIconStyle } from './input.style'
+import { Field, BaseFieldProps } from "redux-form";
+import { IInputProps, IInputState } from "./input.types";
+import Eye from "../eye/eye";
 
-interface IInputProps extends Partial<WrappedFieldProps> {
-    name?: string,
-    styleCss?: Object,
-    type?: string
-    value?: string | number,
-    placeholder?: string,
-  
-    // onChange?: (e: React.ChangeEvent) => void ,
-    errorMessage?: string,
-    valid?: boolean, 
-    touched?: boolean,
-    shouldValidate?: boolean
-  }
+  class InputComponent extends React.PureComponent<IInputProps, IInputState> {
+    constructor(props: IInputProps) {
+      super(props)
 
-  
-  const Input: React.FC<IInputProps> = props => {
-    const {input} = props;
-    return (
-        <div className={style.inputContainer}>
+      this.state = {
+        type: props.type || "text"
+      }
+    }
+
+    private getEyeIcon = () =>  {
+      const { type } = this.props;
+    
+      if (type === "password") {
+        console.log('password');
+        return (
+          <Eye
+            key="eye"
+            closed={this.state.type === "password"}
+            onClick={() => this.handleEyeClick()}
+            style={passwordFieldIconStyle}
+          />
+        );
+      }
+    
+      return null;
+    }
+
+    private handleEyeClick = () => {
+      const isCheckClosed = this.state.type === 'password';
+
+      this.setState({
+        type: isCheckClosed ? 'text' : 'password'
+      })
+    }
+
+    public render() {
+      const {input} = this.props;
+      const passwordStyleClassName = this.props.type === "password" ? style.passwordFieldInputZoneStyle : [];
+      return (
+        <div className={style.inputContainer} style={this.props.styleCss}>
           <input
-            type={props.type}
-            className={style.input}
-            placeholder={props.placeholder}
-            style={props.styleCss}
+            type={this.state.type}
+            className={[style.input, passwordStyleClassName].join(" ")}
+            placeholder={this.props.placeholder}
             {...input}
           />
-          {props.meta?.touched && props.meta.invalid ? <span className={style.span}>{props.meta.error}</span> : null}
+          {this.getEyeIcon()}
+          {this.props.meta?.touched && this.props.meta.invalid ? <span className={style.span}>{this.props.meta.error}</span> : null}
         </div>
     );
-  };
+   }
+  }
 
   const InputField: React.FC<IInputProps & BaseFieldProps> = props => {
     return (
-      <Field name={props.name} component={Input} {...props} />
+      <Field name={props.name} component={InputComponent} {...props} />
     ) 
   };
   

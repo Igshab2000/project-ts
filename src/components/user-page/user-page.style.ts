@@ -5,7 +5,8 @@ export const style = stylesheet({
     userPage : {
         background: '#EBF2FB',
         width: '100%',
-        height: '100%'
+        height: 'calc(100% - 60px)',
+        marginTop: '60px'
     },
 
     userPageHeader: {

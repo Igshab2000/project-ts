@@ -26,3 +26,10 @@ export interface IItemSign {
     type: string,
     typeValidation?: any
 }
+
+export interface IRegistrationVariables {
+    firstName: string,
+    secondName: string,
+    email: string,
+    password: string
+}

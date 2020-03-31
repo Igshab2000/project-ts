@@ -1,12 +1,6 @@
 import * as React from "react";
 import {style} from './button.style'
-
-interface IButtonProps {
-    onClick?: (e: React.MouseEvent) => void,
-    styleCss?: Object,
-    children?: string,
-    type?: string
-  }
+import { IButtonProps } from "./button.types";
   
   const Button: React.FC<IButtonProps> = ({ onClick, styleCss, children, type }) => {
    

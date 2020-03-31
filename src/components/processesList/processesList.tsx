@@ -1,23 +1,16 @@
 import * as React from "react";
+import { style } from './processesList.style';
 import { IProcessListProps, TProcessListData } from "./processList.types";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import {processListQuery} from "../../query/processList";
-import { map } from "lodash";
 import { MapStateToProps, connect } from "react-redux";
 import { TOwnProps } from "../sign-in/sign-in.types";
+import ProcessComponent from '../process-component/process-component';
+import LayoutUser from '../../hoc/Layouts/layout-user/layout-user';
 
 const ProcessList: React.FC<IProcessListProps> = props => {
 
-  const { loading, data, error } = useQuery<TProcessListData>(
-    processListQuery,
-  );
-
-// test mutation
-//   const [addTodo, result] = useMutation<{}, { id: number; str: string }>(
-//     processListQuery
-//   );
-
-//   console.log(result.processList)
+  const { loading, data, error } = useQuery<TProcessListData>(processListQuery);
 
   if (loading) {
     return <p>...загрузка</p>;
@@ -31,30 +24,19 @@ const ProcessList: React.FC<IProcessListProps> = props => {
   console.warn('process Data', data?.processList);
 
   return (
-    <div
-    //   onClick={(e: any) => {
-    //     addTodo({
-          
-    //     });
-    //   }}
-    >
-      {/* {map(data?.processList, process => (
-        <ProcessComponent/>
-      ))} */}
-    </div>
+    <LayoutUser>
+      <div className={style.ProcessList}> 
+        {data?.processList.map(process => (
+          <ProcessComponent key={process.id} processData={process}/>
+        ))}
+      </div>
+    </LayoutUser>
   );
-};
-
-const ProcessComponent: React.FC<any> = () => {
-  return (
-      <h1>Process</h1>
-  )
 };
 
 const mapStateToProps: MapStateToProps<any, TOwnProps> = (
     state: any,
   ) => {
-      //console.log(state.login.user.id)
     return {
         userId: state.login.user.id
     }

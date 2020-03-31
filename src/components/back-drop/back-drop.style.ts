@@ -7,5 +7,6 @@ export const BackDropStyle = style({
     right: 0,
     bottom: 0,
     backgroundColor: 'black',
-    opacity: 0.4
+    opacity: 0.4,
+    zIndex: 85,
 })

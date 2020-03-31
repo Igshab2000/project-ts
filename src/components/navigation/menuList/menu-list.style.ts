@@ -14,7 +14,20 @@ export const style = stylesheet({
     boxSizing: 'border-box',
     transform: 'translateX(0px)',
     transition: 'transform .22s ease-in',
-    zIndex: 90
+    zIndex: 90,
+    opacity: 0.95
+  },
+
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '50px',
+  },
+
+  menuToggle: {
+    marginRight: '12px'
   },
 
   menuClose: {

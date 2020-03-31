@@ -1,24 +1,7 @@
-import { onlyEmail, passLength } from "../../utils/validator";
+import { onlyEmail, passLength } from "../../../utils/validator";
+import { IStateLogin } from "./login.types";
 
-export interface IStateLogin {
-    token: string,
-    listInput: Array<IItemSign>,
-    user: IUser
-}
 
-export interface IItemSign {
-    name: string,
-    placeholder: string,
-    type: string,
-    typeValidation?: any
-}
-
-export interface IUser {
-    firstName: string,
-    secondName: string,
-    email: string,
-    password: string
-}
 
 const initState: IStateLogin = {
     token: '',
@@ -49,7 +32,7 @@ const initState: IStateLogin = {
 export const LoginReducer = (state: IStateLogin = initState, action: any ) => {
     switch(action.type) {
         case 'loginUser': {
-            state.token = action.payload.token;
+            state.token = action.payload?.token;
             state.user = action.payload.user;
             return state;
         }

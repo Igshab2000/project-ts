@@ -9,14 +9,20 @@ export const style = stylesheet({
     },
 
     layoutHeader: {
+        position: 'fixed',
+        width: '100%',
         height: '60px',
         backgroundColor: 'white',
         boxShadow: '0px 1px 10px rgba(104, 121, 187, 0.1)',
-        padding: '18px 24px 18px',
+        zIndex: 90,
+    },
+
+    layoutHeaderContent: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'flex-start',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin: '10px 24px',
     },
 
     h2: {

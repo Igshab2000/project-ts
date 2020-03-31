@@ -8,28 +8,11 @@ import { reduxForm, SubmissionError } from "redux-form";
 import { Dispatch } from "redux";
 import login from '../../store/action/login';
 import { formValidator} from "../../utils/validator";
-import { IProps, ISignState, TLoginDispatchProps, TOwnProps, TFormData } from "./sign-in.types";
+import { IProps, ISignState, TLoginDispatchProps, TOwnProps, TFormData, ILogin, ILoginVariables } from "./sign-in.types";
 import { withMutation, MutateProps } from "@apollo/react-hoc";
-import HeaderSvg from '../../utils/svg/headerSvg';
-import {loginMutation} from '../../query/loginMutation'
-
-
-export interface ILogin {
-    token: String;
-    user: TUser;
-}
-
-export type TUser = {
-    id: number;
-    firstName: string;
-    secondName: string;
-    email: string;
-  };
-
-export interface ILoginVariables {
-    email: string;
-    password: string;
-  }
+import {loginMutation} from '../../query/loginMutation';
+import ErrorMessge from '../error-message/error-message';
+import Authorization from '../../hoc/Layouts/authorization/authorization';
   
 class SignIn extends React.Component<IProps, ISignState> {
 
@@ -52,7 +35,8 @@ class SignIn extends React.Component<IProps, ISignState> {
             })
             .then((res: any) => {
                 this.props.login(res.data.login);
-                history.push("/layout/user-page");
+                localStorage.setItem('token', res.data.login.token);
+                history.push("/user-page");
                 resolve(res);
             })
             .catch((e: any) => {
@@ -63,10 +47,7 @@ class SignIn extends React.Component<IProps, ISignState> {
     
     public render() {
         return (
-            <div className={style.container}>
-            <div className={style.logo}>
-                <HeaderSvg/>
-            </div>
+        <Authorization>    
             <div className={style.layout}>
                 <div className={style.content}>
                     <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
@@ -78,7 +59,8 @@ class SignIn extends React.Component<IProps, ISignState> {
                                     type={element.type}
                                     styleCss={{
                                         width: '100%',
-                                        marginTop: '12px'
+                                        marginTop: '12px',
+                                        position: 'relative'
                                     }}
                                     placeholder={element.placeholder}
                                     validate={[element.typeValidation]}
@@ -99,9 +81,10 @@ class SignIn extends React.Component<IProps, ISignState> {
                         }}
                         href='/sing-up'
                     >Зарегистрироваться</Link>
+                    {this.props.error ? <ErrorMessge errorMessge={this.props.error}/> : null}
                 </div>
             </div>
-        </div>
+        </Authorization>
         )
     }
 }

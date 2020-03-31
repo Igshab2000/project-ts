@@ -17,17 +17,38 @@ export interface IUserPageState {
 
   export interface IPropsUserPage  extends ISignUpProps{
     listInput: Array<IItemSign>
-    user: IUser
+    user: IUser,
+    login: any
   }
 
   export interface IUser {
     [key: string]: string
-}
-  
-  export interface IItemSign {
-      name: string,
-      placeholder: string,
-      type: string,
-      typeValidation?: any
+
   }
+
+  export interface IEditUser {
+    User: TEditUser
+  }
+
+  export type TEditUser = {
+    id: number;
+    firstName: string;
+    secondName: string;
+    email: string;
+  };
+  
+export interface IItemSign {
+  name: string,
+  placeholder: string,
+  type: string,
+  typeValidation?: any
+}
+
+export interface IEditUserVariables {
+  id: number,
+  email: string;
+  firstName: string;
+  secondName: string;
+  password: string;
+}
   

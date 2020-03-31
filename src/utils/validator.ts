@@ -12,6 +12,17 @@ export const formValidator = (fields: any) => {
     errors.passwordField = "Это обязательное поле!";
   }
 
+  if(isEmpty(fields.newPasswordField)) {
+    errors.newPasswordField = "Это обязательное поле!";
+  }
+
+  if(!isEmpty(fields.passwordField) && !isEmpty(fields.newPasswordField)) {
+    console.log(12);
+    if(fields.passwordField !== fields.newPasswordField) {
+      errors.newPasswordField = 'Пароли не совпадают!';
+    }
+  }
+
   return errors;
 };
 
@@ -28,3 +39,4 @@ export const onlyEmail = (value: string) => {
       return 'Некорректно указан email'
   }
 };
+

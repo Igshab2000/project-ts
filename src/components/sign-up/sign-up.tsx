@@ -9,17 +9,12 @@ import { MapStateToProps, connect, MapDispatchToProps } from "react-redux";
 import { reduxForm, SubmissionError } from "redux-form";
 import { Dispatch } from "redux";
 import registration from '../../store/action/registration';
-import {TRegistrationDispatchProps, ISignUpProps, ISignState} from './sign-up.types'
+import {TRegistrationDispatchProps, ISignUpProps, ISignState, IRegistrationVariables} from './sign-up.types'
 import { withMutation, MutateProps } from "@apollo/react-hoc";
-import HeaderSvg from '../../utils/svg/headerSvg';
 import {signupMutation} from '../../query/signupMutation';
+import ErrorMessge from '../error-message/error-message';
+import Authorization from '../../hoc/Layouts/authorization/authorization';
 
-export interface IRegistrationVariables {
-    firstName: string,
-    secondName: string,
-    email: string,
-    password: string
-}
  
 class SignUp extends React.Component<ISignUpProps, ISignState> {
 
@@ -33,7 +28,6 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
     }
 
     private handleSubmit = (fields: any) => {
-        console.warn(fields);
         const {mutate, history} = this.props as any;
         return new Promise((resolve, reject) => {
             mutate({
@@ -45,8 +39,7 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
               }
             })
             .then((res: any) => {
-                //this.props.registration(res.data.signup);
-                history.push("/layout/user-page");
+                history.push("/sign-in");
                 resolve(res);
             })
             .catch((e: any) => {
@@ -59,14 +52,10 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
      
     public render() {
         return (
-            <div className={style.container}>
-                <div className={style.logo}>
-                    <HeaderSvg/>
-                </div>
+            <Authorization>
                 <div className={style.layout}>
                     <div className={style.content}>
                         <h3 className={style.h3}>Регистрация</h3>
-                        {this.props.error ? <span>{this.props.error}</span> : null}
                         <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
                             {this.state.listInput.map((element, index) => {
                                 return (
@@ -76,7 +65,8 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
                                         type={element.type}
                                         styleCss={{
                                             width: '100%',
-                                            marginTop: '12px'
+                                            marginTop: '12px',
+                                            position: 'relative'
                                         }}
                                         placeholder={element.placeholder}
                                         validate={element.typeValidation ? element.typeValidation : null}
@@ -98,10 +88,10 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
                             }}
                             href='/'
                         >Уже зарегистрированы? Войти</Link>
-                        
+                        {this.props.error ? <ErrorMessge errorMessge={this.props.error}/> : null}
                     </div>
                 </div>
-            </div>
+            </Authorization>
         )
     }
 }

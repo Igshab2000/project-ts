@@ -1,16 +1,5 @@
-import { onlyEmail, passLength } from "../../utils/validator";
-
-export interface IStateLogin {
-    signup: string,
-    listInput: Array<IItemSign>
-}
-
-export interface IItemSign {
-    name: string,
-    placeholder: string,
-    type: string,
-    typeValidation?: any
-}
+import { onlyEmail, passLength } from "../../../utils/validator";
+import { IStateLogin } from "./registration.types";
 
 const initState: IStateLogin = {
     signup: '',
@@ -26,7 +15,8 @@ const initState: IStateLogin = {
 export const RegistrationReducer = (state: IStateLogin = initState, action: any ) => {
     switch(action.type) {
         case 'userRegistration':
-            state.signup = action.layout
+            state.signup = action.layout;
+            break;
         default: 
             return state
     }

@@ -1,12 +1,9 @@
 import * as React from "react";
 import {style} from './label.style'
+import { ILabelProps } from "./label.types";
 
-interface ILabelProps {
-    styleCss: Object,
-    children?: string,
-  }
 
-  const Label: React.FC<ILabelProps> = ({ styleCss, children}) => {
+const Label: React.FC<ILabelProps> = ({ styleCss, children}) => {
    
     return (
         <p
@@ -18,4 +15,4 @@ interface ILabelProps {
     );
   };
   
-  export default Label;
+export default Label;

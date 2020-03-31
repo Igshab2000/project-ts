@@ -1,5 +1,4 @@
 import { InjectedFormProps} from "redux-form";
-import { ILogin } from "./sign-in";
 
 export type TLoginDispatchProps = {
     login(payload: any): any;
@@ -10,6 +9,9 @@ export type TOwnProps = {};
 export type TFormData = {
     loginField: string;
     passwordField: string;
+    firstNameField?: string;
+    lastNameField?: string;
+
   };
 
 export interface IProps
@@ -31,3 +33,19 @@ export interface IItemSign {
     typeValidation?: any
 }
 
+export interface ILogin {
+    token: String;
+    user: TUser;
+}
+
+export type TUser = {
+    id: number;
+    firstName: string;
+    secondName: string;
+    email: string;
+};
+
+export interface ILoginVariables {
+    email: string;
+    password: string;
+}
