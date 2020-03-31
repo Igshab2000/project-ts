@@ -17,4 +17,19 @@ export const style = stylesheet({
         height: 'calc(100vh - 118px)',
     },
 
+    form: {
+        marginBottom: '18px'
+    },
+
+    input: {
+        width: '100%',
+        marginTop: '12px',
+        position: 'relative'
+    },
+
+    button: {
+        width: '100%',
+        marginTop: '24px'
+    }
+
 })

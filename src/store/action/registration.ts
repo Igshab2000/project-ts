@@ -1,7 +1,10 @@
-const registration = (payload: any): any => {
+export interface IRegistrationAction {
+    type: string
+}
+
+const registration = (): IRegistrationAction => {
     return {
-        type: 'userRegistration',
-        payload
+        type: 'getState'
     }
 }
 

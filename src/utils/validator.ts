@@ -17,7 +17,6 @@ export const formValidator = (fields: any) => {
   }
 
   if(!isEmpty(fields.passwordField) && !isEmpty(fields.newPasswordField)) {
-    console.log(12);
     if(fields.passwordField !== fields.newPasswordField) {
       errors.newPasswordField = 'Пароли не совпадают!';
     }

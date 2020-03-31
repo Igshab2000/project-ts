@@ -19,6 +19,21 @@ export const style = stylesheet({
 
     h3: {
         margin: 0,
+    },
+
+    form: {
+        marginBottom: '18px'
+    },
+
+    button: {
+        width: '100%',
+        marginTop: '24px'
+    },
+    
+    input: {
+        width: '100%',
+        marginTop: '12px',
+        position: 'relative'
     }
 
 })

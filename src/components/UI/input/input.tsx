@@ -17,7 +17,6 @@ import Eye from "../eye/eye";
       const { type } = this.props;
     
       if (type === "password") {
-        console.log('password');
         return (
           <Eye
             key="eye"
@@ -43,7 +42,7 @@ import Eye from "../eye/eye";
       const {input} = this.props;
       const passwordStyleClassName = this.props.type === "password" ? style.passwordFieldInputZoneStyle : [];
       return (
-        <div className={style.inputContainer} style={this.props.styleCss}>
+        <div className={[style.inputContainer, this.props.styleCss].join(" ")}>
           <input
             type={this.state.type}
             className={[style.input, passwordStyleClassName].join(" ")}

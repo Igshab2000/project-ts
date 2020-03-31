@@ -17,7 +17,6 @@ const ProcessList: React.FC<IProcessListProps> = props => {
   }
 
   if (error) {
-    console.log('process ID', props.userId)
     return <p>Ошибка: {error.message}</p>;
   }
 
@@ -33,21 +32,6 @@ const ProcessList: React.FC<IProcessListProps> = props => {
     </LayoutUser>
   );
 };
-
-const mapStateToProps: MapStateToProps<any, TOwnProps> = (
-    state: any,
-  ) => {
-    return {
-        userId: state.login.user.id
-    }
-  };
   
 
-const ConnectedSignUp = connect<
-    any
->(
-    mapStateToProps,
-)(ProcessList)
-
-
-export default ConnectedSignUp;
+export default ProcessList;

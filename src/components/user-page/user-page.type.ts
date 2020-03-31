@@ -1,4 +1,9 @@
 import { ISignUpProps } from "../sign-up/sign-up.types";
+import { TUser } from "../sign-in/sign-in.types";
+
+export type TEditUserDispatchProps = {
+  editUser (payload: TUser): any;
+};
 
 export interface IUserPageState {
   userFields: Array<string>
@@ -18,7 +23,7 @@ export interface IUserPageState {
   export interface IPropsUserPage  extends ISignUpProps{
     listInput: Array<IItemSign>
     user: IUser,
-    login: any
+    editUser: any
   }
 
   export interface IUser {
@@ -27,15 +32,8 @@ export interface IUserPageState {
   }
 
   export interface IEditUser {
-    User: TEditUser
+    User: TUser
   }
-
-  export type TEditUser = {
-    id: number;
-    firstName: string;
-    secondName: string;
-    email: string;
-  };
   
 export interface IItemSign {
   name: string,

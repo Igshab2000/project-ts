@@ -47,5 +47,23 @@ export const style = stylesheet({
         flexDirection: 'row',
         justifyContent: 'flex-start'
     },
+
+    label: {
+        marginTop: "12px"
+    },
+
+    input: {
+        marginLeft: "120px",
+        marginTop: "12px",
+        width: '450px',
+        position: 'relative'
+    },
+
+    button: {
+        marginTop: '30px',
+        marginBottom: '18px',
+        width: '100px',
+        marginRight: '22px'
+    }
     
 })

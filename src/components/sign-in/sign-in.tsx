@@ -2,7 +2,6 @@ import * as React from "react";
 import {style} from './sign-in.style';
 import Input from '../UI/input/input';
 import Button from '../UI/button/button';
-import Link from '../UI/link/link';
 import { connect, MapDispatchToProps, MapStateToProps } from "react-redux";
 import { reduxForm, SubmissionError } from "redux-form";
 import { Dispatch } from "redux";
@@ -13,6 +12,7 @@ import { withMutation, MutateProps } from "@apollo/react-hoc";
 import {loginMutation} from '../../query/loginMutation';
 import ErrorMessge from '../error-message/error-message';
 import Authorization from '../../hoc/Layouts/authorization/authorization';
+import { Link } from "react-router-dom";
   
 class SignIn extends React.Component<IProps, ISignState> {
 
@@ -34,8 +34,9 @@ class SignIn extends React.Component<IProps, ISignState> {
               }
             })
             .then((res: any) => {
-                this.props.login(res.data.login);
-                localStorage.setItem('token', res.data.login.token);
+                const {token, user} = res.data.login;
+                this.props.login({token, user});
+                localStorage.setItem('token', token);
                 history.push("/user-page");
                 resolve(res);
             })
@@ -50,18 +51,14 @@ class SignIn extends React.Component<IProps, ISignState> {
         <Authorization>    
             <div className={style.layout}>
                 <div className={style.content}>
-                    <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
+                    <form onSubmit={this.props.handleSubmit(this.handleSubmit)} className={style.form}>
                         {this.state.formControls.map((element, index) => {
                             return (
                                 <Input
                                     key={index}
                                     name={element.name}
                                     type={element.type}
-                                    styleCss={{
-                                        width: '100%',
-                                        marginTop: '12px',
-                                        position: 'relative'
-                                    }}
+                                    styleCss={style.input}
                                     placeholder={element.placeholder}
                                     validate={[element.typeValidation]}
                                 />
@@ -69,17 +66,11 @@ class SignIn extends React.Component<IProps, ISignState> {
                         })}
                         
                         <Button
-                            styleCss={{
-                                width: '100%',
-                                marginTop: '24px'
-                            }}
+                            styleCss={style.button}
                         >Войти в систему</Button>
                     </form>
                     <Link
-                        styleCss={{
-                            marginTop: '18px'
-                        }}
-                        href='/sing-up'
+                        to='/sing-up'
                     >Зарегистрироваться</Link>
                     {this.props.error ? <ErrorMessge errorMessge={this.props.error}/> : null}
                 </div>

@@ -2,18 +2,17 @@ import * as React from "react";
 import {style} from './sign-up.style';
 import Input from '../UI/input/input';
 import Button from '../UI/button/button';
-import Link from '../UI/link/link';
 import { formValidator } from "../../utils/validator";
 import { IProps, TOwnProps, TFormData } from "../sign-in/sign-in.types";
 import { MapStateToProps, connect, MapDispatchToProps } from "react-redux";
 import { reduxForm, SubmissionError } from "redux-form";
 import { Dispatch } from "redux";
-import registration from '../../store/action/registration';
 import {TRegistrationDispatchProps, ISignUpProps, ISignState, IRegistrationVariables} from './sign-up.types'
 import { withMutation, MutateProps } from "@apollo/react-hoc";
 import {signupMutation} from '../../query/signupMutation';
 import ErrorMessge from '../error-message/error-message';
 import Authorization from '../../hoc/Layouts/authorization/authorization';
+import { Link } from "react-router-dom";
 
  
 class SignUp extends React.Component<ISignUpProps, ISignState> {
@@ -56,52 +55,33 @@ class SignUp extends React.Component<ISignUpProps, ISignState> {
                 <div className={style.layout}>
                     <div className={style.content}>
                         <h3 className={style.h3}>Регистрация</h3>
-                        <form onSubmit={this.props.handleSubmit(this.handleSubmit)}>
+                        <form onSubmit={this.props.handleSubmit(this.handleSubmit)} className={style.form}>
                             {this.state.listInput.map((element, index) => {
                                 return (
                                     <Input
                                         key={index}
                                         name={element.name}
                                         type={element.type}
-                                        styleCss={{
-                                            width: '100%',
-                                            marginTop: '12px',
-                                            position: 'relative'
-                                        }}
+                                        styleCss={style.input}
                                         placeholder={element.placeholder}
                                         validate={element.typeValidation ? element.typeValidation : null}
                                     />
                                 )
                             })}
                             <Button
-                                styleCss={{
-                                    width: '100%',
-                                    marginTop: '24px'
-                                }}
+                                styleCss={style.button}
                             >
                                 Применить и войти
                             </Button>
                         </form>
                         <Link
-                            styleCss={{
-                                marginTop: '18px'
-                            }}
-                            href='/'
+                            to='/'
                         >Уже зарегистрированы? Войти</Link>
                         {this.props.error ? <ErrorMessge errorMessge={this.props.error}/> : null}
                     </div>
                 </div>
             </Authorization>
         )
-    }
-}
-
-const mapDispatchToProps: MapDispatchToProps<
-    TRegistrationDispatchProps, 
-    IProps
-> = (dispatch: Dispatch, ownProps: IProps) => {
-    return {
-        registration: (payload) => {dispatch(registration(payload))} 
     }
 }
 
@@ -125,8 +105,7 @@ const mapStateToProps: MapStateToProps<any, TOwnProps> = (
 const ConnectedSignUp = connect<
     TRegistrationDispatchProps
 >(
-    mapStateToProps,
-    mapDispatchToProps
+    mapStateToProps
 )(connectedToReduxForm(SignUp))
 
 export default withMutation< any & MutateProps<string, IRegistrationVariables>>(signupMutation)(ConnectedSignUp);

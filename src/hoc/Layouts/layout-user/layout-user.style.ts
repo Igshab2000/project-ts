@@ -5,7 +5,8 @@ export const style = stylesheet({
         height: '100vh',
         display: 'flex',
         flexDirection: 'column',
-        margin: 0
+        margin: 0,
+        minWidth: '950px'
     },
 
     layoutHeader: {

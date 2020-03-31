@@ -9,11 +9,11 @@ import { TFormData, TOwnProps, TLoginDispatchProps } from "../sign-in/sign-in.ty
 import { formValidator } from "../../utils/validator";
 import { TRegistrationDispatchProps } from "../sign-up/sign-up.types";
 import { Dispatch } from "redux";
-import { IPropsUserPage, IUserPageState, IEditUserVariables, IEditUser} from "./user-page.type";
+import { IPropsUserPage, IUserPageState, IEditUserVariables, IEditUser, TEditUserDispatchProps} from "./user-page.type";
 import { editMutation } from '../../query/editUserMutation';
 import { MutateProps, withMutation } from "@apollo/react-hoc";
-import login from "../../store/action/login";
 import LayoutUser from '../../hoc/Layouts/layout-user/layout-user';
+import editUser from "../../store/action/edit-user";
 
   class UserPage extends React.Component<IPropsUserPage, IUserPageState> {
     constructor(props: any) {
@@ -36,7 +36,7 @@ import LayoutUser from '../../hoc/Layouts/layout-user/layout-user';
           })
 
           .then((res: any) => {
-              this.props.login(res.data.editUser);
+              this.props.editUser(res.data.editUser);
               resolve(res);
           })
 
@@ -55,9 +55,7 @@ import LayoutUser from '../../hoc/Layouts/layout-user/layout-user';
             key={index}
           >
             <Label
-              styleCss={{
-                marginTop: "12px"
-              }}
+              styleCss={style.label}
             >
               {field.placeholder}
             </Label>
@@ -65,12 +63,7 @@ import LayoutUser from '../../hoc/Layouts/layout-user/layout-user';
               name={field.name}
               placeholder={field.placeholder}
               type={field.type}
-              styleCss={{
-                marginLeft: "120px",
-                marginTop: "12px",
-                width: '450px',
-                position: 'relative'
-              }}
+              styleCss={style.input}
               validate={field.typeValidation ? field.typeValidation : null}
             />
           </div>
@@ -87,12 +80,7 @@ import LayoutUser from '../../hoc/Layouts/layout-user/layout-user';
                 {this.props.user.firstName + ' ' + this.props.user.secondName} . Редактирование
               </h2>
               <Button
-                styleCss={{
-                  marginTop: '30px',
-                  marginBottom: '18px',
-                  width: '100px',
-                  marginRight: '22px'
-                }}
+                styleCss={style.button}
               >Сохранить</Button>
             </header>
             <div className={style.userPageContent}>
@@ -105,11 +93,11 @@ import LayoutUser from '../../hoc/Layouts/layout-user/layout-user';
   }
 
   const mapDispatchToProps: MapDispatchToProps<
-    TLoginDispatchProps, 
+    TEditUserDispatchProps, 
     IPropsUserPage
 > = (dispatch: Dispatch) => {
     return {
-         login: (payload) => dispatch(login(payload)) 
+         editUser: (payload) => dispatch(editUser(payload)) 
     }
 }
 
@@ -126,7 +114,7 @@ const mapStateToProps: MapStateToProps<any, TOwnProps> = (
   ) => {
     return {
         listInput: state.registration.listInput,
-        user: state.login.user,
+        user: state.editUser.user ? state.editUser.user : state.login.user,
         initialValues: {
           firstNameField: state.login.user.firstName,
           lastNameField: state.login.user.secondName,
@@ -138,7 +126,7 @@ const mapStateToProps: MapStateToProps<any, TOwnProps> = (
   
 
 const ConnectedUserPage = connect<
-  TLoginDispatchProps
+  TEditUserDispatchProps
 >(
     mapStateToProps,
     mapDispatchToProps

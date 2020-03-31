@@ -61,4 +61,14 @@ export const style = stylesheet({
         marginBottom: '24px',
     },
 
+    fieldProcessFirst: { 
+        fontSize: '26px', 
+        lineHeight: '35px' 
+    },
+
+    fieldProcessSecond: { 
+        fontSize: '18px', 
+        lineHeight: '25px' 
+    }
+
 })

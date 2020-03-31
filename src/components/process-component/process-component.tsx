@@ -9,21 +9,7 @@ import TimerSvg from '../../utils/svg/timerSvg';
 import VectorSvg from '../../utils/svg/vectorSvg';
 import ProcessDate from './process-date/process-date';
 import { IProcessComponentProps } from "./process-component.types";
-
-const month: Array<string> = [
-    'января',
-    'февраля',
-    'марта',
-    'апреля',
-    'мая',
-    'июня',
-    'июля',
-    'августа',
-    'сентября',
-    'октября',
-    'ноября',
-    'декабря'
-];
+import { month, employeeDeclension, processDeclension } from "./process-component.consts";
 
 const showFieldProcess: any = (svg: React.FC, header: number | string, text: string, styleCss:object) => {
     return (
@@ -34,7 +20,25 @@ const showFieldProcess: any = (svg: React.FC, header: number | string, text: str
             styleCss={styleCss}
         />
     )
-}  
+} 
+
+const getWord = (number: number, arrayWords: Array<string>) =>  {
+    number = Math.abs(number);
+    number %= 100;
+    if (number >= 5 && number <= 20) {
+        return arrayWords[2];
+    }
+    number %= 10;
+    if (number == 1) {
+        return arrayWords[0];
+    }
+    if (number >= 2 && number <= 4) {
+        return arrayWords[1];
+    }
+    return arrayWords[2];
+}
+
+
 
 const getPercentagetime = (leadTime: number, activeTime: number) => {
     return ' ( ' + (activeTime / leadTime * 100).toFixed(1) + ' %)';
@@ -53,12 +57,23 @@ const transferDate = (time: number) => {
 }
 
 const ProcessComponent: React.FC<IProcessComponentProps> = ({processData}) => {
-    console.log(new Date(+processData.start).getFullYear());
+    const {
+        name,
+        numberOfExecutions,
+        averageLeadTime,
+        averageActiveTime,
+        employeesInvolvedProcess,
+        numberOfScenarios,
+        start,
+        end,
+        loading
+    } = processData;
+
     return (
         <div className={style.container}>
             <div className={style.containerHeader}>
                 <span className={style.header}>
-                    {processData.name}
+                    {name}
                 </span>
                 <span className={style.headerLink}>
                     На карту процесса
@@ -69,46 +84,54 @@ const ProcessComponent: React.FC<IProcessComponentProps> = ({processData}) => {
                 <div className={style.containerContantProcess}>
                     {showFieldProcess(
                         LoadingSvg, 
-                        processData.numberOfExecutions, 
+                        numberOfExecutions, 
                         'выполнено раз', 
-                        { fontSize: '26px', lineHeight: '35px' })}
+                        style.fieldProcessFirst
+                        )}
                 </div>
                 <div className={style.containerContantColumn}>
                     <div className={style.containerContantColumnFirst}>
                         {showFieldProcess(
                             ClockSvg, 
-                            transferTime(+processData.averageLeadTime), 
+                            transferTime(+averageLeadTime), 
                             'среднее время выполнения', 
-                            { fontSize: '18px', lineHeight: '25px' })}
+                            style.fieldProcessSecond
+                            )}
                     </div>
                     <div>
                         {showFieldProcess(
                             TimerSvg, 
-                            transferTime(+processData.averageActiveTime) + getPercentagetime(+processData.averageLeadTime, +processData.averageActiveTime), 
+                            transferTime(+averageActiveTime) + 
+                            getPercentagetime(+averageLeadTime, +averageActiveTime), 
                             'среднее активное время', 
-                            { fontSize: '18px', lineHeight: '25px' })}
+                            style.fieldProcessSecond
+                        )}
                     </div>
                 </div>
                 <div className={style.containerContantColumn}>
                     <div className={style.containerContantColumnFirst}>
                         {showFieldProcess(
                             Employees, 
-                            processData.employeesInvolvedProcess + ' сотрудников', 
+                            employeesInvolvedProcess + 
+                            getWord(employeesInvolvedProcess, employeeDeclension), 
                             'участвует в процессе', 
-                            { fontSize: '18px', lineHeight: '25px' })}
+                            style.fieldProcessSecond
+                        )}
                     </div>
                     <div>
                         {showFieldProcess(
                                 ScriptSvg, 
-                                processData.numberOfScenarios + ' процессов', 
+                                numberOfScenarios + 
+                                getWord(numberOfScenarios, processDeclension), 
                                 'в процессе', 
-                                { fontSize: '18px', lineHeight: '25px' })}
+                                style.fieldProcessSecond
+                        )}
                     </div>
                 </div>
                 <div className={style.containerContantColumn}>
-                    <ProcessDate label='Начало' date={transferDate(+processData.start)} />
-                    <ProcessDate label='Окончание' date={transferDate(+processData.end)} />
-                    <ProcessDate label='Загрузка' date={transferDate(+processData.loading)} />
+                    <ProcessDate label='Начало' date={transferDate(+start)} />
+                    <ProcessDate label='Окончание' date={transferDate(+end)} />
+                    <ProcessDate label='Загрузка' date={transferDate(+loading)} />
                 </div>
             </div>
         </div>

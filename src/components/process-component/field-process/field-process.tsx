@@ -6,7 +6,7 @@ const FieldProcess: React.FC<IFieldProcessProps> = ({svgComponent, header, text,
     const Svg = svgComponent;
     return (
         <div className={style.container}>
-            <div className={style.header} style={styleCss}>
+            <div className={[style.header, styleCss].join(' ')} >
                 <Svg/>
                 <span className={style.headerText}>
                     {header}

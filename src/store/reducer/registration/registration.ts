@@ -1,5 +1,6 @@
 import { onlyEmail, passLength } from "../../../utils/validator";
 import { IStateLogin } from "./registration.types";
+import { IRegistrationAction } from "../../action/registration";
 
 const initState: IStateLogin = {
     signup: '',
@@ -12,11 +13,8 @@ const initState: IStateLogin = {
       ]
 }
 
-export const RegistrationReducer = (state: IStateLogin = initState, action: any ) => {
+export const RegistrationReducer = (state: IStateLogin = initState, action: IRegistrationAction ) => {
     switch(action.type) {
-        case 'userRegistration':
-            state.signup = action.layout;
-            break;
         default: 
             return state
     }

@@ -7,8 +7,7 @@ const Label: React.FC<ILabelProps> = ({ styleCss, children}) => {
    
     return (
         <p
-            className={style.label}
-            style={styleCss}
+            className={[style.label, styleCss].join(' ')}
         >
             {children}
         </p>

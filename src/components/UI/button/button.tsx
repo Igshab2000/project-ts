@@ -6,9 +6,13 @@ import { IButtonProps } from "./button.types";
    
     return (
         <button
-            className={type !== 'disabled' ? style.button : style.button + ' ' + style.buttonDisabled}
+            className={
+              type !== 'disabled' ? 
+                [style.button, styleCss].join(' ') 
+              : 
+                [style.button, style.buttonDisabled, styleCss].join(' ') 
+            }
             onClick={onClick}
-            style={styleCss}
         >
             {children}
         </button>
