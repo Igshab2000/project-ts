@@ -1,8 +1,8 @@
 import * as React from "react";
-import {style, passwordFieldIconStyle } from './input.style'
+import {style, passwordFieldIconStyle } from './Input.style'
 import { Field, BaseFieldProps } from "redux-form";
-import { IInputProps, IInputState } from "./input.types";
-import Eye from "../eye/eye";
+import { IInputProps, IInputState } from "./Input.types";
+import Eye from "../Eye/Eye";
 
   class InputComponent extends React.PureComponent<IInputProps, IInputState> {
     constructor(props: IInputProps) {

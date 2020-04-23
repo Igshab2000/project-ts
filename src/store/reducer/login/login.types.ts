@@ -1,6 +1,5 @@
 export interface IStateLogin {
     token?: string,
-    listInput: Array<IItemSign>,
     user: IUser
 }
 

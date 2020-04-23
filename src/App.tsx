@@ -1,13 +1,12 @@
 import React from 'react';
-import LayoutUser from './hoc/Layouts/layout-user/layout-user';
-import SignIn from './components/sign-in/sign-in';
-import SignUp from './components/sign-up/sign-up';
+import SignIn from './containers/SignIn/SignIn';
+import SignUp from './containers/SignUp/SignUp';
 import {Switch, Route} from 'react-router-dom';
 import { connect, MapStateToProps } from "react-redux";
 import ApolloClient, { Operation } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
-import UserPage from './components/user-page/user-page';
-import ProcessList from './components/processesList/processesList'  
+import UserPage from './containers/UserPage/UserPage';
+import ProcessList from './containers/ProcessesList/ProcessesList'  
 
 export interface IAppProps {}
 
@@ -28,7 +27,7 @@ function App(props: any) {
 
   let routes = (
     <Switch>
-      <Route path="/sing-up" component={SignUp}/> 
+      <Route path="/sign-up" component={SignUp}/> 
       <Route path="/" component={SignIn}/>
     </Switch>
   )

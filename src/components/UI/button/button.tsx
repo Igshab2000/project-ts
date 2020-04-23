@@ -1,6 +1,6 @@
 import * as React from "react";
-import {style} from './button.style'
-import { IButtonProps } from "./button.types";
+import {style} from './Button.style'
+import { IButtonProps } from "./Button.types";
   
   const Button: React.FC<IButtonProps> = ({ onClick, styleCss, children, type }) => {
    

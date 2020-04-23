@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IEyeProps } from './eye.types';
+import { IEyeProps } from './Eye.types';
 import ClosedEyeSvg from '../../../utils/svg/eyeClosedSvg';
 import OpenEyeSvg from '../../../utils/svg/openEyeSvg';
 

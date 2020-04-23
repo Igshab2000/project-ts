@@ -1,6 +1,6 @@
 import * as React from "react";
-import {style} from './label.style'
-import { ILabelProps } from "./label.types";
+import {style} from './Label.style'
+import { ILabelProps } from "./Label.types";
 
 
 const Label: React.FC<ILabelProps> = ({ styleCss, children}) => {

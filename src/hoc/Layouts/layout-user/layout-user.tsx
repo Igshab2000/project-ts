@@ -1,6 +1,6 @@
 import * as React from "react";
-import MenuList from "../../../components/navigation/menuList/menu-list";
-import BackDroup from "../../../components/back-drop/back-drop";
+import MenuList from "../../../components/Navigation/MenuList/MenuList";
+import BackDroup from "../../../components/BackDrop/BackDrop";
 import {style} from './layout-user.style';
 import { ILayoutProps, ILayoutState } from "./layout-user.types";
 

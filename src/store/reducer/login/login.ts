@@ -1,27 +1,9 @@
-import { onlyEmail, passLength } from "../../../utils/validator";
 import { IStateLogin } from "./login.types";
 import { ILoginAction } from "../../action/login";
 
-
-
 const initState: IStateLogin = {
     token: '',
-    listInput: [
-        {
-            type: 'email',
-            placeholder: 'Электронная почта',
-            name: 'loginField',
-            typeValidation: onlyEmail
-        },
-        {
-            type: 'password',
-            placeholder: 'Пароль',
-            name: 'passwordField',
-            typeValidation: passLength(8)
 
-        }
-    ],
-    
     user: {
         id: 0,
         firstName: '',
